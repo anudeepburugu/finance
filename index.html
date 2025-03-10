@@ -414,25 +414,20 @@
 
         }
         
-        alert(`Net payable: ${calcMultiple(a)}`);
+        alert(`Net payable: ${c1(a)}`);
         
     }
 });
 
+function i1(e){return e%400==0||e%4==0&&e%100!=0}
 
+function g1(e,t){let a=new Date(Date.parse(e));var g=1==a.getMonth()&&28==a.getDate()&&!i1(a.getFullYear()),n=1==a.getMonth()&&29==a.getDate();let r;return r=g||n?i1(t)?`${t}/02/29`:`${t}/02/28`:`${t}-${a.getMonth()+1}-${a.getDate()}`,r}
 
-function isLeapYear(e){return e%400==0||e%4==0&&e%100!=0}
+function c2(e=1e4,t="2024/03/04",a="2025-03-04",r=10){let l=Date.parse(t),n=new Date(l),D=n.getFullYear(),u=(n.getMonth(),n.getDate(),0),s=Date.parse(a),g=new Date(s),i=g.getFullYear();if(g-n<0)return null;let p=Date.parse(g1(t,i)),w=new Date(p);return s-p>0?(u=e*Math.pow(1+r/100,i-D),u+=r1(w,p,g,s,r,u)):(p=Date.parse(g1(t,i-1)),w=new Date(p),s-p>0&&(u=e*Math.pow(1+r/100,i-1-D),u+=r1(w,p,g,s,r,u))),u}
 
-function getValidDate(e,t){let a=new Date(Date.parse(e));var g=1==a.getMonth()&&28==a.getDate()&&!isLeapYear(a.getFullYear()),n=1==a.getMonth()&&29==a.getDate();let r;return r=g||n?isLeapYear(t)?`${t}/02/29`:`${t}/02/28`:`${t}-${a.getMonth()+1}-${a.getDate()}`,r}
+function r1(e,r,a,t,l,n){let s=parseInt((t-r)/864e5),u=i1(a.getFullYear()),p=i1(e.getFullYear());if(u){var i=Date.parse(`${a.getFullYear()}-02-29`);return parseInt((t-i)/864e5)>=0&&parseInt((e-i)/864e5)<=0?n*s*l/36600:n*s*l/36500}if(p){i=Date.parse(`${e.getFullYear()}-02-29`);return parseInt((e-i)/864e5)<=0?n*s*l/36600:n*s*l/36500}return n*s*l/36500}
 
-
-function calcInterest(e=1e4,t="2024/03/04",a="2025-03-04",r=10){let l=Date.parse(t),n=new Date(l),D=n.getFullYear(),u=(n.getMonth(),n.getDate(),0),s=Date.parse(a),g=new Date(s),i=g.getFullYear();if(g-n<0)return null;let p=Date.parse(getValidDate(t,i)),w=new Date(p);return s-p>0?(u=e*Math.pow(1+r/100,i-D),u+=residue(w,p,g,s,r,u)):(p=Date.parse(getValidDate(t,i-1)),w=new Date(p),s-p>0&&(u=e*Math.pow(1+r/100,i-1-D),u+=residue(w,p,g,s,r,u))),u}
-
-
-function residue(e,r,a,t,l,n){let s=parseInt((t-r)/864e5),u=isLeapYear(a.getFullYear()),p=isLeapYear(e.getFullYear());if(u){var i=Date.parse(`${a.getFullYear()}-02-29`);return parseInt((t-i)/864e5)>0&&parseInt((e-i)/864e5)<=0?n*s*l/36600:n*s*l/36500}if(p){i=Date.parse(`${e.getFullYear()}-02-29`);return parseInt((e-i)/864e5)<=0?n*s*l/36600:n*s*l/36500}return n*s*l/36500}
-
-
-function calcMultiple(t){let e=t[t.length-1][1],l=0;for(var n=0;n<t.length;n++)l+=calcInterest(t[n][0],t[n][1],e,rate);return l}
+function c1(t){let e=t[t.length-1][1],l=0;for(var n=0;n<t.length;n++)l+=c2(t[n][0],t[n][1],e,rate);return l}
 
     
 </script>
